@@ -5,10 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @yield('title')
-    <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logos/favicon.png')}}" />
+    <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logos/favicon.png') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/libs/quill/dist/quill.snow.css">
+    <link rel="stylesheet"
+        href="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/libs/quill/dist/quill.snow.css">
     <script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
 
     <style>
@@ -34,14 +35,6 @@
         <aside class="left-sidebar">
             <!-- Sidebar scroll-->
             <div>
-                <div class="brand-logo d-flex align-items-center justify-content-between">
-                    <a href="./index.html" class="text-nowrap logo-img">
-                        <img src="{{ asset('assets/images/logos/medicine-logo.png') }}" width="180" alt="" />
-                    </a>
-                    <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
-                        <i class="ti ti-x fs-8"></i>
-                    </div>
-                </div>
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
                     <ul id="sidebarnav">
@@ -50,11 +43,27 @@
                             <span class="hide-menu">Admin Menu</span>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="" aria-expanded="false">
+                            <a class="sidebar-link" href="{{ route('admin.index') }}" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-info-circle"></i>
                                 </span>
-                                <span class="hide-menu">Article</span>
+                                <span class="hide-menu">Artikel</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('admin.comment.index') }}" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-info-circle"></i>
+                                </span>
+                                <span class="hide-menu">Komentar</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('admin.laporan.index') }}" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-info-circle"></i>
+                                </span>
+                                <span class="hide-menu">Laporan</span>
                             </a>
                         </li>
                     </ul>
@@ -89,22 +98,12 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="https://ui-avatars.com/api/?name={{ auth()->user()->first_name }}" alt=""
-                                        width="35" height="35" class="rounded-circle">
+                                    <img src="https://ui-avatars.com/api/?name={{ auth()->user()->name }}"
+                                        alt="" width="35" height="35" class="rounded-circle">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up"
                                     aria-labelledby="drop2">
                                     <div class="message-body">
-                                        <a href="{{ route('profile.index') }}"
-                                            class="d-flex align-items-center gap-2 dropdown-item">
-                                            <i class="ti ti-user fs-6"></i>
-                                            <p class="mb-0 fs-3">My Profile</p>
-                                        </a>
-                                        <a href="{{ route('profile.changePassword') }}"
-                                            class="d-flex align-items-center gap-2 dropdown-item">
-                                            <i class="ti ti-lock fs-6"></i>
-                                            <p class="mb-0 fs-3">Change Password</p>
-                                        </a>
                                         <a class="btn btn-outline-primary mx-3 mt-2 d-block"
                                             href="{{ route('logout') }}"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>

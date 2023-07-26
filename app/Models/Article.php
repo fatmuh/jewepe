@@ -17,6 +17,7 @@ class Article extends Model
         'slug',
         'content',
         'thumbnail',
+        'is_comment',
     ];
 
     public function comment()

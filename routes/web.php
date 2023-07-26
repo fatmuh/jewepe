@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\LaporanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +19,28 @@ use App\Http\Controllers\LandingPageController;
 
 Route::controller(LandingPageController::class)->name('landing.')->group( function() {
     Route::get('/', 'index')->name('index');
+    Route::get('/article/{slug}', 'articleDetail')->name('article-detail');
+    Route::post('/comment', 'commentPost')->name('comment-post');
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware(['auth'])->group(function () {
+    Route::controller(HomeController::class)->name('admin.')->group( function() {
+        Route::get('/home', 'index')->name('index');
+        Route::get('/create', 'articleCreate')->name('article-create');
+        Route::post('/create', 'articlePost')->name('article-post');
+        Route::get('/edit/{slug}', 'articleEdit')->name('article-edit');
+        Route::post('/update/{slug}', 'articleUpdate')->name('article-update');
+        Route::put('/delete/{id}', 'articleDelete')->name('article-delete');
+    });
+
+    Route::controller(CommentController::class)->name('admin.comment.')->group( function() {
+        Route::get('/admin/komentar', 'index')->name('index');
+        Route::put('/admin/komentar/delete/{id}', 'commentDelete')->name('comment-delete');
+    });
+
+    Route::controller(LaporanController::class)->name('admin.laporan.')->group( function() {
+        Route::get('/admin/laporan', 'index')->name('index');
+    });
+});
